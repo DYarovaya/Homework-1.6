@@ -107,11 +107,11 @@ class Shape {
     }
     
     func squareOfShape() -> Float {
-        return square
+        square
     }
 
     func perimeterOfShape() -> Float {
-        return perimeter
+        perimeter
     }
 }
 /*:
