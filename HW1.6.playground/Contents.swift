@@ -42,7 +42,7 @@ class Orange {
     }
     
     var orangeVolume: Double {
-        //можно сразу вызвать метод подсчета объема, для того что бы объем был сразу подсчитан
+        //можно ли сразу вызвать метод подсчета объема? для того что бы объем был сразу подсчитан
         //calculateOrangeVolume()
         volume
     }
@@ -222,8 +222,8 @@ let surnames = ["Smith", "Dow", "Isaacson", "Pennyworth", "Jankins"]
 var employees = [Employee]()
 
 for _ in 1...10 {
-    let randomName = names[Int.random(in: 0...4)]
-    let randomSurname = surnames[Int.random(in: 0...4)]
+    let randomName = names[Int.random(in: 0...names.count - 1)]
+    let randomSurname = surnames[Int.random(in: 0...names.count - 1)]
     let randomSalary = Int.random(in: 1000...2000)
     
     employees.append(Employee(salary: randomSalary, name: randomName, surname: randomSurname))
