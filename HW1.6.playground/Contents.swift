@@ -78,8 +78,14 @@ class Shape {
     let height: Float
     let width: Float
     let radius: Float
-    var square: Float
-    var perimeter: Float
+    
+    var square: Float {
+        squareOfShape()
+    }
+    
+    var perimeter: Float {
+        perimeterOfShape()
+    }
     
     var description: String {
         "Площадь фигуры равна \(square), периметр (длина) равен(а) \(perimeter)"
@@ -91,27 +97,25 @@ class Shape {
     ) {
         self.height = height
         self.width = width
+        //Я так понимаю, что здесь лучше не указывать конкретные значения?
         self.radius = 0.0
-        self.square = 0.0
-        self.perimeter = 0.0
     }
     
     init(
         radius: Float
     ) {
+        //Я так понимаю, что здесь лучше не указывать конкретные значения?
         self.height = 0.0
         self.width = 0.0
         self.radius = radius
-        self.square = 0.0
-        self.perimeter = 0.0
     }
     
     func squareOfShape() -> Float {
-        square
+        0.0
     }
 
     func perimeterOfShape() -> Float {
-        perimeter
+        0.0
     }
 }
 /*:
@@ -123,13 +127,11 @@ class Circle: Shape {
     }
     
     override func squareOfShape() -> Float {
-        square = Float(Double.pi * pow(Double(radius), 2.0))
-        return square
+        Float(Double.pi * pow(Double(radius), 2.0))
     }
     
     override func perimeterOfShape() -> Float {
-        perimeter = Float(2 * Double.pi * Double(radius))
-        return perimeter
+        Float(2 * Double.pi * Double(radius))
     }
 }
 
@@ -139,13 +141,11 @@ class Rectangle: Shape {
     }
     
     override func squareOfShape() -> Float {
-        square = height * width
-        return square
+        height * width
     }
     
     override func perimeterOfShape() -> Float {
-        perimeter = width + width + height + height
-        return perimeter
+        width + width + height + height
     }
 }
 
@@ -156,14 +156,12 @@ class Ellipse: Shape {
     
     override func squareOfShape() -> Float {
         let (a, b) = calculateSemiAxis(height: height, width: width)
-        square = Float(Double.pi) * a * b
-        return square
+        return Float(Double.pi) * a * b
     }
     
     override func perimeterOfShape() -> Float {
         let (a, b) = calculateSemiAxis(height: height, width: width)
-        perimeter = 4 * (Float(Double.pi) * a * b + (a - b) / (a + b))
-        return perimeter
+        return 4 * (Float(Double.pi) * a * b + (a - b) / (a + b))
     }
     
     //метод для определения большой и малой полуоси
@@ -177,18 +175,12 @@ class Ellipse: Shape {
 }
 //: 2.3 Создайте по экземпляру каждого класса, кроме `Shape` и проинициализируйте свойства `height` и `width` или `radius` для каждого класса в любые значения. Выведите значение свойства `description` на консоль.
 let circle = Circle(radius: 2.6)
-circle.squareOfShape()
-circle.perimeterOfShape()
 print(circle.description)
 
 let ellipse = Ellipse(height: 3, width: 1)
-ellipse.perimeterOfShape()
-ellipse.squareOfShape()
 print(ellipse.description)
 
 let rectangle = Rectangle(height: 2, width: 5.4)
-rectangle.squareOfShape()
-rectangle.perimeterOfShape()
 print(rectangle.description)
 /*:
  ## Задание 3
