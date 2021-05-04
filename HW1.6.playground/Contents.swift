@@ -29,8 +29,6 @@ class Orange {
     let taste: String
     let radius: Double
     
-    private var volume = 0.0
-    
     init(
         color: String = "Orange",
         taste: String = "Sweet",
@@ -42,20 +40,15 @@ class Orange {
     }
     
     var orangeVolume: Double {
-        //можно ли сразу вызвать метод подсчета объема? для того что бы объем был сразу подсчитан
-        //calculateOrangeVolume()
-        volume
+        calculateOrangeVolume()
     }
     
-    func calculateOrangeVolume() {
-        volume = (4.0 / 3.0) * Double.pi * pow(radius, 3.0)
+    func calculateOrangeVolume()  -> Double{
+        (4.0 / 3.0) * Double.pi * pow(radius, 3.0)
     }
 }
 
 let orange = Orange(radius: 2.3)
-
-//если я в геттере вызываю метод, то тут мне уже не нужно вызывать
-orange.calculateOrangeVolume()
 
 print("Orange has \(orange.color) color and \(orange.taste) taste. The volume of orange is \(String(format: "%.3f", orange.orangeVolume))")
 /*:
@@ -75,9 +68,9 @@ print("Orange has \(orange.color) color and \(orange.taste) taste. The volume of
  Oбъявите в классе методы `squareOfShape` и `perimeterOfShape` для расчетов площади и периметра (длины) фигуры соответственно. Методы должены возвращать `Float`. Создайте отдельный инициализатор для высоты и ширины и отдельный инициализатор для радиуса. Так же создайте свойство `description`, которое должно возвращать сообщение следующего вида: «Площадь фигуры <тип фигуры> равна <... >, периметр (длина) равен(а) <...>»
  */
 class Shape {
-    let height: Float
-    let width: Float
-    let radius: Float
+    var height: Float = 0
+    var width: Float = 0
+    var radius: Float = 0
     
     var square: Float {
         squareOfShape()
@@ -97,16 +90,11 @@ class Shape {
     ) {
         self.height = height
         self.width = width
-        //Я так понимаю, что здесь лучше не указывать конкретные значения?
-        self.radius = 0.0
     }
     
     init(
         radius: Float
     ) {
-        //Я так понимаю, что здесь лучше не указывать конкретные значения?
-        self.height = 0.0
-        self.width = 0.0
         self.radius = radius
     }
     
@@ -122,24 +110,16 @@ class Shape {
  2.2. Создайте классы `Circle`, `Rectangle` и `Ellipse`, унаследовав их от `Shape`. Переопределите методы `squareOfShape` и `perimeterOfShape` для каждого класса в соответствии с правилом расчета площади и периметра (длины) конкретной фигуры.
  */
 class Circle: Shape {
-    override var description: String {
-        "Площадь круга равна \(String(format: "%.2f", square)), периметр (длина) равен(а) \(String(format: "%.2f", perimeter))"
-    }
-    
     override func squareOfShape() -> Float {
-        Float(Double.pi * pow(Double(radius), 2.0))
+        Float.pi * radius * radius
     }
     
     override func perimeterOfShape() -> Float {
-        Float(2 * Double.pi * Double(radius))
+        2 * Float.pi * radius
     }
 }
 
 class Rectangle: Shape {
-    override var description: String {
-        "Площадь прямоугольника равна \(String(format: "%.2f", square)), периметр (длина) равен(а) \(String(format: "%.2f", perimeter))"
-    }
-    
     override func squareOfShape() -> Float {
         height * width
     }
@@ -150,10 +130,6 @@ class Rectangle: Shape {
 }
 
 class Ellipse: Shape {
-    override var description: String {
-        "Площадь эллипса равна \(String(format: "%.2f", square)), периметр (длина) равен(а) \(String(format: "%.2f", perimeter))"
-    }
-    
     override func squareOfShape() -> Float {
         let (a, b) = calculateSemiAxis(height: height, width: width)
         return Float(Double.pi) * a * b
@@ -174,13 +150,12 @@ class Ellipse: Shape {
     }
 }
 //: 2.3 Создайте по экземпляру каждого класса, кроме `Shape` и проинициализируйте свойства `height` и `width` или `radius` для каждого класса в любые значения. Выведите значение свойства `description` на консоль.
-let circle = Circle(radius: 2.6)
-print(circle.description)
-
-let ellipse = Ellipse(height: 3, width: 1)
-print(ellipse.description)
-
+let circle = Circle(radius: 4.6)
+let ellipse = Ellipse(height: 5, width: 1)
 let rectangle = Rectangle(height: 2, width: 5.4)
+
+print(circle.description)
+print(ellipse.description)
 print(rectangle.description)
 /*:
  ## Задание 3
@@ -224,18 +199,7 @@ for _ in 1...10 {
 for employee in employees {
     print("\(employee.name) \(employee.surname)'s salary is $\(employee.salary)")
 }
-
-
 //: 3.5 Создайте еще один массив на основе `employees`, который включает только тех работников, чья зарплата чётная. Выведите информацию по каждому сотруднику с четной зарплатой, как в пункте 3.4
-//var employeesWithEvenSalary = [Employee]()
-//
-//print("Сотрудники с четной зарплатой")
-//for employee in employees {
-//    if employee.salary % 2 == 0 {
-//        employeesWithEvenSalary.append(employee)
-//    }
-//}
-
 var employeesWithEvenSalary = employees.filter { (employee) in
     employee.salary % 2 == 0
 }
